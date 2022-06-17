@@ -264,7 +264,7 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView> w
         default:
           if (itemRect.top > rect.bottom) return;
           // 如果 item 下方的座標 比 listView 的上方的座標 的位置的小 代表不在畫面中。
-          if (itemRect.bottom < rect.top + MediaQuery.of(context).viewPadding.top + kToolbarHeight + 56) return;
+          if (itemRect.bottom < rect.top + MediaQuery.of(context).viewPadding.top + kToolbarHeight) return;
       }
 
       items.add(index);
