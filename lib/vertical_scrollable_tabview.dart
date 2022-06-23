@@ -120,7 +120,7 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView> w
             BuildVerticalSliverList(
               itemsKeys: itemsKeys,
               scrollController: scrollController,
-               listItemData: widget._listItemData,
+              listItemData: widget._listItemData,
               eachItemChild: widget._eachItemChild,
             ),
           ],
@@ -192,7 +192,10 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView> w
   /// onScrollNotification of NotificationListener
   /// true表示消費掉當前通知不再向上一级NotificationListener傳遞通知，false則會再向上一级NotificationListener傳遞通知；
   bool onScrollNotification(ScrollNotification notification) {
-    if (pauseRectGetterIndex) return true;
+    if (pauseRectGetterIndex) {
+      print("pauseRectGetterIndex pauseRectGetterIndex pauseRectGetterIndex");
+      return true;
+    }
 // if (visibleItems.isNotEmpty && visibleItems.length <= 2) {
 
     // /// get tabBar index
