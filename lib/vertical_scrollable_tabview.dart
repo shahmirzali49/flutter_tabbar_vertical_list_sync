@@ -224,7 +224,7 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView> w
 
     // widget._tabController.animateTo(visibleItems[0]);
 
-    if (pauseRectGetterIndex) {
+    if (!pauseRectGetterIndex) {
       print("pauseRectGetterIndex pauseRectGetterIndex pauseRectGetterIndex");
       return true;
     } else if (reachLastTabIndex && scrollController.position.extentAfter < 70) {
