@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:rect_getter/rect_getter.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
+import 'package:vertical_scrollable_tabview/widgets/build_item_widget.dart';
+import 'package:vertical_scrollable_tabview/widgets/build_vertical_sliver_list.dart';
 
 /// Detect TabBar Status, isOnTap = is to check TabBar is on Tap or not, isOnTapIndex = is on Tap Index
 /// 增廁 TabBar 的狀態，isOnTap 是用來判斷是否是被點擊的狀態，isOnTapIndex 是用來儲存 TapBar 的 Index 的。
@@ -114,7 +116,13 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView> w
           controller: scrollController,
           slivers: [
             ...widget._slivers,
-            buildVerticalSliverList(),
+            // buildVerticalSliverList(),
+            BuildVerticalSliverList(
+              itemsKeys: itemsKeys,
+              scrollController: scrollController,
+               listItemData: widget._listItemData,
+              eachItemChild: widget._eachItemChild,
+            ),
           ],
         ),
       ),
@@ -144,24 +152,15 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView> w
         (index) {
           // 建立 itemKeys 的 Key
           itemsKeys[index] = RectGetter.createGlobalKey();
-          return buildItem(index);
+          return BuildItemWidget(
+            itemsKeys: itemsKeys,
+            scrollController: scrollController,
+            index: index,
+            listItemData: widget._listItemData,
+            eachItemChild: widget._eachItemChild,
+          );
         },
       )),
-    );
-  }
-
-  Widget buildItem(int index) {
-    dynamic category = widget._listItemData[index];
-    return RectGetter(
-      /// when announce GlobalKey，we can use RectGetter.getRectFromKey(key) to get Rect
-      /// 宣告 GlobalKey，之後可以 RectGetter.getRectFromKey(key) 的方式獲得 Rect
-      key: itemsKeys[index],
-      child: AutoScrollTag(
-        key: ValueKey(index),
-        index: index,
-        controller: scrollController,
-        child: widget._eachItemChild(category, index),
-      ),
     );
   }
 
@@ -225,7 +224,7 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView> w
 
     // widget._tabController.animateTo(visibleItems[0]);
 
-    if (reachLastTabIndex && scrollController.position.extentAfter < 100) {
+    if (reachLastTabIndex && scrollController.position.extentAfter < 250) {
       widget._tabController.animateTo(visibleItems.last);
       print("IF ISLEDI");
     } else {
