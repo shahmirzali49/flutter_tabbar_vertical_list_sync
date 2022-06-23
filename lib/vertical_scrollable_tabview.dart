@@ -95,21 +95,20 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView> w
       }
     });
     scrollController = AutoScrollController();
-    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-    //   scrollController.addListener(() {
-    //     widget._tabController.indexIsChanging
-    //     print('scrolling');
-    //   });
-    //   scrollController.position.isScrollingNotifier.addListener(() {
-    //     if (!scrollController.position.isScrollingNotifier.value) {
-    //       pauseRectGetterIndex = false;
-    //       print('scroll is stopped');
-    //     } else {
-    //       pauseRectGetterIndex = true;
-    //       print('scroll is started');
-    //     }
-    //   });
-    // });
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      scrollController.addListener(() {
+        print('scrolling');
+      });
+      scrollController.position.isScrollingNotifier.addListener(() {
+        if (!scrollController.position.isScrollingNotifier.value) {
+          pauseRectGetterIndex = false;
+          print('scroll is stopped');
+        } else {
+          pauseRectGetterIndex = true;
+          print('scroll is started');
+        }
+      });
+    });
 
     super.initState();
   }
@@ -189,19 +188,19 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView> w
     switch (widget._verticalScrollPosition) {
       case VerticalScrollPosition.begin:
         scrollController.scrollToIndex(index, preferPosition: AutoScrollPosition.begin).then((value) async {
-          await Future.delayed(Duration(milliseconds: 500));
+          await Future.delayed(Duration(milliseconds: 350));
           pauseRectGetterIndex = false;
         });
         break;
       case VerticalScrollPosition.middle:
         scrollController.scrollToIndex(index, preferPosition: AutoScrollPosition.middle).then((value) async {
-          await Future.delayed(Duration(milliseconds: 500));
+          await Future.delayed(Duration(milliseconds: 350));
           pauseRectGetterIndex = false;
         });
         break;
       case VerticalScrollPosition.end:
         scrollController.scrollToIndex(index, preferPosition: AutoScrollPosition.end).then((value) async {
-          await Future.delayed(Duration(milliseconds: 500));
+          await Future.delayed(Duration(milliseconds: 350));
           pauseRectGetterIndex = false;
         });
         break;
