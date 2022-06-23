@@ -224,7 +224,7 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView> w
 
     // widget._tabController.animateTo(visibleItems[0]);
 
-    if (reachLastTabIndex && scrollController.position.extentAfter < 250) {
+    if (reachLastTabIndex && scrollController.position.extentAfter > 250) {
       widget._tabController.animateTo(visibleItems.last);
       print("IF ISLEDI");
     } else {
