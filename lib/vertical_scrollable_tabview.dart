@@ -192,10 +192,6 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView> w
   /// onScrollNotification of NotificationListener
   /// true表示消費掉當前通知不再向上一级NotificationListener傳遞通知，false則會再向上一级NotificationListener傳遞通知；
   bool onScrollNotification(ScrollNotification notification) {
-    if (pauseRectGetterIndex) {
-      print("pauseRectGetterIndex pauseRectGetterIndex pauseRectGetterIndex");
-      return true;
-    }
 // if (visibleItems.isNotEmpty && visibleItems.length <= 2) {
 
     // /// get tabBar index
@@ -206,6 +202,8 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView> w
 
     // /// define what is reachLastTabIndex
     bool reachLastTabIndex = visibleItems.isNotEmpty && visibleItems.length <= 2 && visibleItems.last == lastTabIndex;
+
+    log("object -- ${notification.metrics.extentAfter} -+- ${scrollController.position.extentAfter} ---  ${visibleItems} --- ${widget._tabController.length}");
 
     // /// if reachLastTabIndex, then scroll to last index
     // /// 如果到達最後一個 index 就跳轉到最後一個 index
@@ -223,11 +221,13 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView> w
     //   }
     // }
     // List<int> visibleItems = getVisibleItemsIndex();
-    log("object -- ${notification.metrics.extentAfter} -+- ${scrollController.position.extentAfter} ---  ${visibleItems} --- ${widget._tabController.length}");
 
     // widget._tabController.animateTo(visibleItems[0]);
 
-    if (reachLastTabIndex && scrollController.position.extentAfter < 70) {
+    if (pauseRectGetterIndex) {
+      print("pauseRectGetterIndex pauseRectGetterIndex pauseRectGetterIndex");
+      return true;
+    } else if (reachLastTabIndex && scrollController.position.extentAfter < 70) {
       widget._tabController.animateTo(visibleItems.last);
       print("IF ISLEDI");
     } else {
