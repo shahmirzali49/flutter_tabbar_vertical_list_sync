@@ -95,6 +95,16 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView> w
       }
     });
     scrollController = AutoScrollController();
+    scrollController.position.isScrollingNotifier.addListener(() {
+      if (!scrollController.position.isScrollingNotifier.value) {
+        pauseRectGetterIndex = false;
+        print('scroll is stopped');
+      } else {
+        pauseRectGetterIndex = true;
+        print('scroll is started');
+      }
+    });
+
     super.initState();
   }
 
@@ -224,8 +234,9 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView> w
 
     // widget._tabController.animateTo(visibleItems[0]);
 
-    if (!pauseRectGetterIndex) {
+    if (pauseRectGetterIndex) {
       print("pauseRectGetterIndex pauseRectGetterIndex pauseRectGetterIndex");
+
       return true;
     } else if (reachLastTabIndex && scrollController.position.extentAfter < 70) {
       widget._tabController.animateTo(visibleItems.last);
