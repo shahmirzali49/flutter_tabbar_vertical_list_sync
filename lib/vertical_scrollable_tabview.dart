@@ -95,14 +95,16 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView> w
       }
     });
     scrollController = AutoScrollController();
-    scrollController.position.isScrollingNotifier.addListener(() {
-      if (!scrollController.position.isScrollingNotifier.value) {
-        pauseRectGetterIndex = false;
-        print('scroll is stopped');
-      } else {
-        pauseRectGetterIndex = true;
-        print('scroll is started');
-      }
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      scrollController.position.isScrollingNotifier.addListener(() {
+        if (!scrollController.position.isScrollingNotifier.value) {
+          pauseRectGetterIndex = false;
+          print('scroll is stopped');
+        } else {
+          pauseRectGetterIndex = true;
+          print('scroll is started');
+        }
+      });
     });
 
     super.initState();
