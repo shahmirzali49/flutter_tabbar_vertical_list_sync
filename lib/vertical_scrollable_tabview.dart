@@ -95,17 +95,21 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView> w
       }
     });
     scrollController = AutoScrollController();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      scrollController.position.isScrollingNotifier.addListener(() {
-        if (!scrollController.position.isScrollingNotifier.value) {
-          pauseRectGetterIndex = false;
-          print('scroll is stopped');
-        } else {
-          pauseRectGetterIndex = true;
-          print('scroll is started');
-        }
-      });
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    //   scrollController.addListener(() {
+    //     widget._tabController.indexIsChanging
+    //     print('scrolling');
+    //   });
+    //   scrollController.position.isScrollingNotifier.addListener(() {
+    //     if (!scrollController.position.isScrollingNotifier.value) {
+    //       pauseRectGetterIndex = false;
+    //       print('scroll is stopped');
+    //     } else {
+    //       pauseRectGetterIndex = true;
+    //       print('scroll is started');
+    //     }
+    //   });
+    // });
 
     super.initState();
   }
@@ -184,19 +188,22 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView> w
     widget._tabController.animateTo(index);
     switch (widget._verticalScrollPosition) {
       case VerticalScrollPosition.begin:
-        scrollController
-            .scrollToIndex(index, preferPosition: AutoScrollPosition.begin)
-            .then((value) => pauseRectGetterIndex = false);
+        scrollController.scrollToIndex(index, preferPosition: AutoScrollPosition.begin).then((value) async {
+          await Future.delayed(Duration(milliseconds: 500));
+          pauseRectGetterIndex = false;
+        });
         break;
       case VerticalScrollPosition.middle:
-        scrollController
-            .scrollToIndex(index, preferPosition: AutoScrollPosition.middle)
-            .then((value) => pauseRectGetterIndex = false);
+        scrollController.scrollToIndex(index, preferPosition: AutoScrollPosition.middle).then((value) async {
+          await Future.delayed(Duration(milliseconds: 500));
+          pauseRectGetterIndex = false;
+        });
         break;
       case VerticalScrollPosition.end:
-        scrollController
-            .scrollToIndex(index, preferPosition: AutoScrollPosition.end)
-            .then((value) => pauseRectGetterIndex = false);
+        scrollController.scrollToIndex(index, preferPosition: AutoScrollPosition.end).then((value) async {
+          await Future.delayed(Duration(milliseconds: 500));
+          pauseRectGetterIndex = false;
+        });
         break;
     }
   }
@@ -235,7 +242,9 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView> w
     // List<int> visibleItems = getVisibleItemsIndex();
 
     // widget._tabController.animateTo(visibleItems[0]);
-
+    if (notification is ScrollStartNotification) {
+    } else if (notification is ScrollUpdateNotification) {
+    } else if (notification is ScrollEndNotification) {}
     if (pauseRectGetterIndex) {
       print("pauseRectGetterIndex pauseRectGetterIndex pauseRectGetterIndex");
 
