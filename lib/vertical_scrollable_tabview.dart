@@ -95,20 +95,20 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView> w
       }
     });
     scrollController = AutoScrollController();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      scrollController.addListener(() {
-        print('scrolling');
-      });
-      scrollController.position.isScrollingNotifier.addListener(() {
-        if (!scrollController.position.isScrollingNotifier.value) {
-          pauseRectGetterIndex = false;
-          print('scroll is stopped');
-        } else {
-          pauseRectGetterIndex = true;
-          print('scroll is started');
-        }
-      });
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    //   scrollController.addListener(() {
+    //     print('scrolling');
+    //   });
+    //   scrollController.position.isScrollingNotifier.addListener(() {
+    //     if (!scrollController.position.isScrollingNotifier.value) {
+    //       pauseRectGetterIndex = false;
+    //       print('scroll is stopped');
+    //     } else {
+    //       pauseRectGetterIndex = true;
+    //       print('scroll is started');
+    //     }
+    //   });
+    // });
 
     super.initState();
   }
@@ -241,19 +241,13 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView> w
     // List<int> visibleItems = getVisibleItemsIndex();
 
     // widget._tabController.animateTo(visibleItems[0]);
-    if (notification is ScrollStartNotification) {
-    } else if (notification is ScrollUpdateNotification) {
-    } else if (notification is ScrollEndNotification) {}
-    if (pauseRectGetterIndex) {
-      print("pauseRectGetterIndex pauseRectGetterIndex pauseRectGetterIndex");
 
+    if (pauseRectGetterIndex) {
       return true;
     } else if (reachLastTabIndex && scrollController.position.extentAfter < 70) {
       widget._tabController.animateTo(visibleItems.last);
-      print("IF ISLEDI");
     } else {
       widget._tabController.animateTo(visibleItems[0]);
-      print("ELSE ISLEDI");
     }
 
     return false;
