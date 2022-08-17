@@ -221,7 +221,7 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView> w
     // /// define what is reachLastTabIndex
     bool reachLastTabIndex = visibleItems.isNotEmpty && visibleItems.length <= 2 && visibleItems.last == lastTabIndex;
 
-    log("object -- ${notification.metrics.extentAfter} -+- ${scrollController.position.extentAfter} ---  ${visibleItems} --- ${widget._tabController.length}");
+    // log("object -- ${notification.metrics.extentAfter} -+- ${scrollController.position.extentAfter} ---  ${visibleItems} --- ${widget._tabController.length}");
 
     // /// if reachLastTabIndex, then scroll to last index
     // /// 如果到達最後一個 index 就跳轉到最後一個 index
