@@ -1,8 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/widgets.dart';
 import 'package:rect_getter/rect_getter.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
-class BuildItemWidget extends StatelessWidget {
+class BuildItemWidget extends StatefulWidget {
   const BuildItemWidget({
     Key? key,
      required this.itemsKeys,
@@ -19,15 +21,31 @@ class BuildItemWidget extends StatelessWidget {
   final Widget Function(dynamic aaa, int index) eachItemChild;
 
   @override
+  State<BuildItemWidget> createState() => _BuildItemWidgetState();
+}
+
+class _BuildItemWidgetState extends State<BuildItemWidget> {
+   @override
+  void initState() {
+    log("INITSTATE BuildVerticalSliverList WIDGET EN SON");
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant BuildItemWidget oldWidget) {
+    log("didUpdateWidget BuildVerticalSliverList WIDGET EN SON");
+    super.didUpdateWidget(oldWidget);
+  }
+  @override
   Widget build(BuildContext context) {
-    dynamic category = listItemData[index];
+    dynamic category = widget.listItemData[widget.index];
     return RectGetter(
-      key: itemsKeys[index],
+      key: widget.itemsKeys[widget.index],
       child: AutoScrollTag(
-        key: ValueKey(index),
-        index: index,
-        controller: scrollController,
-        child: eachItemChild(category, index),
+        key: ValueKey(widget.index),
+        index: widget.index,
+        controller: widget.scrollController,
+        child: widget.eachItemChild(category, widget.index),
       ),
     );
   }
