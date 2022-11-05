@@ -167,24 +167,24 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView>
   //   );
   // }
 
-  SliverList buildVerticalSliverList() {
-    return SliverList(
-      delegate: SliverChildListDelegate(List.generate(
-        widget._listItemData.length,
-        (index) {
-          // 建立 itemKeys 的 Key
-          itemsKeys[index] = RectGetter.createGlobalKey();
-          return BuildItemWidget(
-            itemsKeys: itemsKeys,
-            scrollController: scrollController,
-            index: index,
-            listItemData: widget._listItemData,
-            eachItemChild: widget._eachItemChild,
-          );
-        },
-      )),
-    );
-  }
+  // SliverList buildVerticalSliverList() {
+  //   return SliverList(
+  //     delegate: SliverChildListDelegate(List.generate(
+  //       widget._listItemData.length,
+  //       (index) {
+  //         // 建立 itemKeys 的 Key
+  //         itemsKeys[index] = RectGetter.createGlobalKey();
+  //         return BuildItemWidget(
+  //           itemsKeys: itemsKeys,
+  //           scrollController: scrollController,
+  //           index: index,
+  //           listItemData: widget._listItemData,
+  //           eachItemChild: widget._eachItemChild,
+  //         );
+  //       },
+  //     )),
+  //   );
+  // }
 
   /// Animation Function for tabBarListener
   /// This need to put inside TabBar onTap, but in this case we put inside tabBarListener
