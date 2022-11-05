@@ -43,7 +43,7 @@ class _BuildVerticalSliverListState extends State<BuildVerticalSliverList> {
         widget.listItemData.length,
         (index) {
           // 建立 itemKeys 的 Key
-          widget.itemsKeys[index] = GlobalKey();
+          // widget.itemsKeys[index] = GlobalKey();
           // RectGetter.createGlobalKey();
           return BuildItemWidget(
             itemsKeys: widget.itemsKeys,

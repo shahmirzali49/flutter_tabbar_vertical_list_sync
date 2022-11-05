@@ -44,7 +44,7 @@ class _BuildItemWidgetState extends State<BuildItemWidget> {
   Widget build(BuildContext context) {
     dynamic category = widget.listItemData[widget.index];
     return RectGetter(
-      key: widget.itemsKeys[widget.index],
+      key: GlobalKey(),
       child: AutoScrollTag(
         key: ValueKey(widget.index),
         index: widget.index,
