@@ -79,7 +79,7 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView>
   bool pauseRectGetterIndex = false;
 
   /// Instantiate RectGetter（套件提供的方法）
-  final listViewKey = GlobalKey<RectGetterState>();
+  final listViewKey = RectGetter.createGlobalKey();
 
   /// To save the item's Rect
   /// 用來儲存 items 的 Rect 的 Map
@@ -89,6 +89,7 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView>
   void initState() {
     log("INITSTATE _VerticalScrollableTabViewState");
     widget._tabController.addListener(() {
+      
       // will call two times, because 底層呼叫 2 次 notifyListeners()
       // https://stackoverflow.com/questions/60252355/tabcontroller-listener-called-multiple-times-how-does-indexischanging-work
       if (VerticalScrollableTabBarStatus.isOnTap) {
@@ -114,13 +115,11 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView>
 
     super.initState();
   }
-
-  @override
+@override
   void didUpdateWidget(covariant VerticalScrollableTabView oldWidget) {
     log("didUpdateWidget _VerticalScrollableTabViewState");
     super.didUpdateWidget(oldWidget);
   }
-
   @override
   void dispose() {
     scrollController.dispose();
