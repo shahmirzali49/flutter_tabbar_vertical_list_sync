@@ -1,8 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:rect_getter/rect_getter.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
+import 'package:vertical_scrollable_tabview/rect_getter.dart';
 import 'package:vertical_scrollable_tabview/widgets/build_item_widget.dart';
 import 'package:vertical_scrollable_tabview/widgets/build_vertical_sliver_list.dart';
 
@@ -69,8 +69,7 @@ class VerticalScrollableTabView extends StatefulWidget {
   _VerticalScrollableTabViewState createState() => _VerticalScrollableTabViewState();
 }
 
-class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView>
-    with SingleTickerProviderStateMixin {
+class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView> with SingleTickerProviderStateMixin {
   /// Instantiate scroll_to_index (套件提供的方法)
   late AutoScrollController scrollController;
 
@@ -89,7 +88,6 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView>
   void initState() {
     log("INITSTATE _VerticalScrollableTabViewState");
     widget._tabController.addListener(() {
-      
       // will call two times, because 底層呼叫 2 次 notifyListeners()
       // https://stackoverflow.com/questions/60252355/tabcontroller-listener-called-multiple-times-how-does-indexischanging-work
       if (VerticalScrollableTabBarStatus.isOnTap) {
@@ -115,11 +113,13 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView>
 
     super.initState();
   }
-@override
+
+  @override
   void didUpdateWidget(covariant VerticalScrollableTabView oldWidget) {
     log("didUpdateWidget _VerticalScrollableTabViewState");
     super.didUpdateWidget(oldWidget);
   }
+
   @override
   void dispose() {
     scrollController.dispose();
@@ -194,25 +194,19 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView>
     widget._tabController.animateTo(index);
     switch (widget._verticalScrollPosition) {
       case VerticalScrollPosition.begin:
-        scrollController
-            .scrollToIndex(index, preferPosition: AutoScrollPosition.begin)
-            .then((value) async {
+        scrollController.scrollToIndex(index, preferPosition: AutoScrollPosition.begin).then((value) async {
           await Future.delayed(Duration(milliseconds: 350));
           pauseRectGetterIndex = false;
         });
         break;
       case VerticalScrollPosition.middle:
-        scrollController
-            .scrollToIndex(index, preferPosition: AutoScrollPosition.middle)
-            .then((value) async {
+        scrollController.scrollToIndex(index, preferPosition: AutoScrollPosition.middle).then((value) async {
           await Future.delayed(Duration(milliseconds: 350));
           pauseRectGetterIndex = false;
         });
         break;
       case VerticalScrollPosition.end:
-        scrollController
-            .scrollToIndex(index, preferPosition: AutoScrollPosition.end)
-            .then((value) async {
+        scrollController.scrollToIndex(index, preferPosition: AutoScrollPosition.end).then((value) async {
           await Future.delayed(Duration(milliseconds: 350));
           pauseRectGetterIndex = false;
         });
@@ -232,8 +226,7 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView>
     List<int> visibleItems = getVisibleItemsIndex();
 
     // /// define what is reachLastTabIndex
-    bool reachLastTabIndex =
-        visibleItems.isNotEmpty && visibleItems.length <= 2 && visibleItems.last == lastTabIndex;
+    bool reachLastTabIndex = visibleItems.isNotEmpty && visibleItems.length <= 2 && visibleItems.last == lastTabIndex;
 
     // log("object -- ${notification.metrics.extentAfter} -+- ${scrollController.position.extentAfter} ---  ${visibleItems} --- ${widget._tabController.length}");
 
@@ -295,8 +288,7 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView>
         default:
           if (itemRect.top > rect.bottom) return;
           // 如果 item 下方的座標 比 listView 的上方的座標 的位置的小 代表不在畫面中。
-          if (itemRect.bottom < rect.top + MediaQuery.of(context).viewPadding.top + kToolbarHeight)
-            return;
+          if (itemRect.bottom < rect.top + MediaQuery.of(context).viewPadding.top + kToolbarHeight) return;
       }
 
       items.add(index);
