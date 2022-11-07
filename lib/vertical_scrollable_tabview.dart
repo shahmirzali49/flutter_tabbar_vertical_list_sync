@@ -78,7 +78,7 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView> w
   bool pauseRectGetterIndex = false;
 
   /// Instantiate RectGetter（套件提供的方法）
-  static final listViewKey = RectGetter.createGlobalKey();
+  final listViewKey = RectGetter.createGlobalKey();
 
   /// To save the item's Rect
   /// 用來儲存 items 的 Rect 的 Map
@@ -223,7 +223,9 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView> w
     // /// 取得 tabBar 的長度
     int lastTabIndex = widget._tabController.length - 1;
 
-    List<int> visibleItems = getVisibleItemsIndex();
+    // List<int> visibleItems = getVisibleItemsIndex();
+
+    List<int> visibleItems = [];
 
     // /// define what is reachLastTabIndex
     bool reachLastTabIndex = visibleItems.isNotEmpty && visibleItems.length <= 2 && visibleItems.last == lastTabIndex;
@@ -273,7 +275,6 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView> w
     bool isHoriontalScroll = false;
     itemsKeys.forEach((index, key) {
       Rect? itemRect = RectGetter.getRectFromKey(key);
-     
       if (itemRect == null) return;
       // y 軸座越大，代表越下面
       // 如果 item 上方的座標 比 listView 的下方的座標 的位置的大 代表不在畫面中。

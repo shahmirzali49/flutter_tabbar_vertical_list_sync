@@ -27,20 +27,21 @@ class BuildItemWidget extends StatefulWidget {
 class _BuildItemWidgetState extends State<BuildItemWidget> {
   @override
   void initState() {
-    log("INITSTATE BuildItemWidget WIDGET EN SON");
+    log("INITSTATE BuildVerticalSliverList WIDGET EN SON");
     super.initState();
   }
 
   @override
   void didUpdateWidget(covariant BuildItemWidget oldWidget) {
-    log("didUpdateWidget BuildItemWidget WIDGET EN SON");
+    log("didUpdateWidget BuildVerticalSliverList WIDGET EN SON");
     super.didUpdateWidget(oldWidget);
   }
 
   @override
   Widget build(BuildContext context) {
     dynamic category = widget.listItemData[widget.index];
-    return RectGetter.defaultKey(
+    return RectGetter(
+      key: widget.itemsKeys[widget.index],
       child: AutoScrollTag(
         key: ValueKey(widget.index),
         index: widget.index,
@@ -48,17 +49,5 @@ class _BuildItemWidgetState extends State<BuildItemWidget> {
         child: widget.eachItemChild(category, widget.index),
       ),
     );
-
-    // widget.eachItemChild(category, widget.index);
-    // RectGetter(
-    //   key: widget.itemsKeys[widget.index],
-    //   child: widget.eachItemChild(category, widget.index),
-    //  AutoScrollTag(
-    //   key: ValueKey(widget.index),
-    //   index: widget.index,
-    //   controller: widget.scrollController,
-    //   child: widget.eachItemChild(category, widget.index),
-    // ),
-    // );
   }
 }
