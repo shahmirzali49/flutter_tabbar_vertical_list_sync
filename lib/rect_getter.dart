@@ -44,7 +44,7 @@ class RectGetter extends StatefulWidget {
     );
   }
 
-  Rect? getRect() => getRectFromKey(this.key);
+  // Rect? getRect() => getRectFromKey(this.key);
 
   /// 克隆出新对象实例，避免同一GlobalKey在组件树上重复出现导致的问题
   /// make a clone with different GlobalKey

@@ -40,16 +40,25 @@ class _BuildItemWidgetState extends State<BuildItemWidget> {
   @override
   Widget build(BuildContext context) {
     dynamic category = widget.listItemData[widget.index];
-    return widget.eachItemChild(category, widget.index);
+    return RectGetter.defaultKey(
+      child: AutoScrollTag(
+        key: ValueKey(widget.index),
+        index: widget.index,
+        controller: widget.scrollController,
+        child: widget.eachItemChild(category, widget.index),
+      ),
+    );
+
+    // widget.eachItemChild(category, widget.index);
     // RectGetter(
     //   key: widget.itemsKeys[widget.index],
     //   child: widget.eachItemChild(category, widget.index),
-      //  AutoScrollTag(
-      //   key: ValueKey(widget.index),
-      //   index: widget.index,
-      //   controller: widget.scrollController,
-      //   child: widget.eachItemChild(category, widget.index),
-      // ),
+    //  AutoScrollTag(
+    //   key: ValueKey(widget.index),
+    //   index: widget.index,
+    //   controller: widget.scrollController,
+    //   child: widget.eachItemChild(category, widget.index),
+    // ),
     // );
   }
 }
