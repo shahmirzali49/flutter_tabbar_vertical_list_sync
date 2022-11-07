@@ -129,7 +129,7 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView> w
   @override
   Widget build(BuildContext context) {
     return RectGetter(
-      key: GlobalKey<RectGetterState>(),
+      key: listViewKey,
       // NotificationListener 是一個由下往上傳遞通知，true 阻止通知、false 傳遞通知，確保指監聽滾動的通知
       // ScrollNotification => https://www.jianshu.com/p/d80545454944
       child: NotificationListener<ScrollNotification>(
@@ -223,9 +223,7 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView> w
     // /// 取得 tabBar 的長度
     int lastTabIndex = widget._tabController.length - 1;
 
-    // List<int> visibleItems = getVisibleItemsIndex();
-
-    List<int> visibleItems = [];
+    List<int> visibleItems = getVisibleItemsIndex();
 
     // /// define what is reachLastTabIndex
     bool reachLastTabIndex = visibleItems.isNotEmpty && visibleItems.length <= 2 && visibleItems.last == lastTabIndex;

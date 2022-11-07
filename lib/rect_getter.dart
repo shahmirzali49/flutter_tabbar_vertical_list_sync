@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 /// 需要实时获得某个Widget的Rect信息时使用该控件
@@ -20,7 +18,8 @@ class RectGetter extends StatefulWidget {
     var size = object?.semanticBounds.size;
 
     if (translation != null && size != null) {
-      return Rect.fromLTWH(translation.x, translation.y, size.width, size.height);
+      return Rect.fromLTWH(
+          translation.x, translation.y, size.width, size.height);
     } else {
       return null;
     }
@@ -37,40 +36,28 @@ class RectGetter extends StatefulWidget {
 
   /// 生成默认GlobalKey的命名无参构造，调用对象的getRect方法获得Rect
   /// Use defaultKey to build RectGetter , and then use object itself`s getRect() method to get child`s rect
-  // factory RectGetter.defaultKey({required Widget child}) {
-  //   return RectGetter(
-  //     key: GlobalKey(),
-  //     child: child,
-  //   );
-  // }
+  factory RectGetter.defaultKey({required Widget child}) {
+    return RectGetter(
+      key: GlobalKey(),
+      child: child,
+    );
+  }
 
-  // // Rect? getRect() => getRectFromKey(this.key);
+  Rect? getRect() => getRectFromKey(this.key);
 
-  // /// 克隆出新对象实例，避免同一GlobalKey在组件树上重复出现导致的问题
-  // /// make a clone with different GlobalKey
-  // RectGetter clone() {
-  //   return RectGetter.defaultKey(
-  //     child: this.child,
-  //   );
-  // }
+  /// 克隆出新对象实例，避免同一GlobalKey在组件树上重复出现导致的问题
+  /// make a clone with different GlobalKey
+  RectGetter clone() {
+    return RectGetter.defaultKey(
+      child: this.child,
+    );
+  }
 
   @override
   RectGetterState createState() => RectGetterState();
 }
 
 class RectGetterState extends State<RectGetter> {
-  @override
-  void initState() {
-    log("INITSTATE RectGetter WIDGET ------");
-    super.initState();
-  }
-
-  @override
-  void didUpdateWidget(covariant RectGetter oldWidget) {
-    log("didUpdateWidget RectGetter WIDGET  ------");
-    super.didUpdateWidget(oldWidget);
-  }
-
   @override
   Widget build(BuildContext context) => widget.child;
 }
