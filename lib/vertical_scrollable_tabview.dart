@@ -129,7 +129,7 @@ class _VerticalScrollableTabViewState extends State<VerticalScrollableTabView> w
   @override
   Widget build(BuildContext context) {
     return RectGetter(
-      key: listViewKey,
+      key: GlobalKey<RectGetterState>(),
       // NotificationListener 是一個由下往上傳遞通知，true 阻止通知、false 傳遞通知，確保指監聽滾動的通知
       // ScrollNotification => https://www.jianshu.com/p/d80545454944
       child: NotificationListener<ScrollNotification>(
